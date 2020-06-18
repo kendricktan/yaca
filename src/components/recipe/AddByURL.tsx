@@ -9,7 +9,7 @@ const ByURL = () => {
     <>
       <Input.Search
         placeholder={"https://sallysbakingaddiction.com/best-banana-cake/"}
-        enterButton="Grab"
+        enterButton="Add"
         onSearch={(url) => extractRecipe({ url })}
       />
     </>

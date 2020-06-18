@@ -8,34 +8,19 @@ import Recipes from "../recipe/Recipes";
 import SupplyGitHubPAT from "../supply-github-pat/SupplyGithubPat";
 
 const Container = styled.div`
+  margin-top: 24px;
   padding: 7px;
-`;
-
-const RowFull = styled(Row)`
-  height: 100vh;
 `;
 
 export default () => {
   const { personalAccessToken } = useGitHubAuthentication.useContainer();
-  useQueryString();
-
-  if (personalAccessToken === null) {
-    return (
-      <Container>
-        <RowFull justify="space-around" align="middle">
-          <Col span={8}>
-            <SupplyGitHubPAT />
-          </Col>
-        </RowFull>
-      </Container>
-    );
-  }
+  // useQueryString();
 
   return (
     <Container>
       <Row justify="center">
         <Col span={16}>
-          <Recipes />
+          {personalAccessToken === null ? <SupplyGitHubPAT /> : <Recipes />}
         </Col>
       </Row>
     </Container>

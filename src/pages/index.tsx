@@ -1,5 +1,4 @@
 import Head from "next/head";
-
 import Main from "../components/main/Main";
 
 const Home = () => {
