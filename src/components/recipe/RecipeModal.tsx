@@ -106,7 +106,7 @@ const RecipeModal = () => {
             </Tabs.Item>
             <Tabs.Item label="Steps" value="steps">
               <ScrollableDiv>
-                <ol>
+                <ol style={{ marginLeft: "20pt" }}>
                   {(instructions || []).map((x) => (
                     <li key={x}>{x}</li>
                   ))}
