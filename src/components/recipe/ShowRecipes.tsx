@@ -98,7 +98,7 @@ const ShowRecipes = () => {
                 <Image
                   width={435}
                   height={200}
-                  src={image}
+                  src={image || "https://i.imgur.com/rUPj2pR.jpg"}
                   style={{ objectFit: "cover", maxHeight: "200px" }}
                 />
               </Display>
