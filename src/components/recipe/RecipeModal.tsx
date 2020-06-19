@@ -167,6 +167,7 @@ const RecipeModal = () => {
                   onChange={(e) =>
                     setNRecipeKV("tags", e.target.value.split(","))
                   }
+                  placeholder="dessert,favorite"
                   value={nRecipeData.tags.join(",")}
                 />
                 <Spacer y={1} />
