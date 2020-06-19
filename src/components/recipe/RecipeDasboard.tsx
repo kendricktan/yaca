@@ -13,6 +13,11 @@ const DivRight = styled.div`
   margin-top: 10px;
 `;
 
+const DivFull = styled.div`
+  width: 100%;
+  height: 50px;
+`;
+
 const RecipeDasboard = () => {
   const {
     setPersonalAccessToken,
@@ -21,7 +26,7 @@ const RecipeDasboard = () => {
 
   return (
     <>
-      <>
+      <DivFull>
         <DivRight>
           <Select placeholder="Account">
             <Select.Option
@@ -36,12 +41,14 @@ const RecipeDasboard = () => {
           </Select>
         </DivRight>
         <Text h2>YACA</Text>
+      </DivFull>
+      <>
+        <Spacer y={1} />
+        <AddRecipe />
+        <Spacer y={1} />
+        <ShowRecipes />
+        <RecipeModal />
       </>
-      <Spacer y={1} />
-      <AddRecipe />
-      <Spacer y={1} />
-      <ShowRecipes />
-      <RecipeModal />
     </>
   );
 };
