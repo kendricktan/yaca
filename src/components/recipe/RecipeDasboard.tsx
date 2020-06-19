@@ -1,10 +1,15 @@
-import { Text, Select, Spacer } from "@zeit-ui/react";
+import { Select, Spacer } from "@zeit-ui/react";
+import styled from "styled-components";
 
 import AddRecipe from "./AddRecipe";
 import RecipeModal from "./RecipeModal";
 import ShowRecipes from "./ShowRecipes";
 
 import useGithubAuthentication from "../../containers/GitHubAuthentication";
+
+const DivRight = styled.div`
+  text-align: right;
+`;
 
 const RecipeDasboard = () => {
   const {
@@ -14,7 +19,7 @@ const RecipeDasboard = () => {
 
   return (
     <>
-      <div style={{ textAlign: "right" }}>
+      <DivRight>
         <Select placeholder="Account">
           <Select.Option
             value="logout"
@@ -26,7 +31,7 @@ const RecipeDasboard = () => {
             Logout
           </Select.Option>
         </Select>
-      </div>
+      </DivRight>
       <Spacer y={1} />
       <AddRecipe />
       <Spacer y={1} />

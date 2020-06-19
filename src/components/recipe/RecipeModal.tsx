@@ -96,11 +96,11 @@ const RecipeModal = () => {
             <Tabs.Item label="Items" value="items">
               <ScrollableDiv>
                 <>
-                  <ul>
+                  <>
                     {(ingredients || []).map((x) => (
                       <li key={x}>{x}</li>
                     ))}
-                  </ul>
+                  </>
                 </>
               </ScrollableDiv>
             </Tabs.Item>
