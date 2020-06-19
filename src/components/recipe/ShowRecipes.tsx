@@ -81,7 +81,7 @@ const ShowRecipes = () => {
           const { image, title } = gistContent[recipeId];
 
           return (
-            <>
+            <div key={recipeId}>
               <Display
                 style={{ cursor: "pointer" }}
                 onClick={() => {
@@ -104,7 +104,7 @@ const ShowRecipes = () => {
               </Display>
 
               <Spacer y={1} />
-            </>
+            </div>
           );
         })}
     </>

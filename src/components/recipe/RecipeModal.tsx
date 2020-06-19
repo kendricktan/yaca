@@ -98,7 +98,7 @@ const RecipeModal = () => {
                 <>
                   <ul>
                     {ingredients.map((x) => (
-                      <li>{x}</li>
+                      <li key={x}>{x}</li>
                     ))}
                   </ul>
                 </>
@@ -108,7 +108,7 @@ const RecipeModal = () => {
               <ScrollableDiv>
                 <ol>
                   {instructions.map((x) => (
-                    <li>{x}</li>
+                    <li key={x}>{x}</li>
                   ))}
                 </ol>
               </ScrollableDiv>
