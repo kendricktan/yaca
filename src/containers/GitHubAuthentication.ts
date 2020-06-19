@@ -61,6 +61,8 @@ export function useGitHubAuthentication() {
   return {
     username,
     personalAccessToken,
+    setPersonalAccessToken,
+    setUsername,
     checkAndSetPersonalAccessToken,
     isChecking,
   };
