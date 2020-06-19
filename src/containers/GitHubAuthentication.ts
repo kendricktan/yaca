@@ -1,12 +1,14 @@
 import { createContainer } from "unstated-next";
 import React, { useState } from "react";
-import { notification } from "antd";
+import { useToasts } from "@zeit-ui/react";
 import useLocalStorageState from "use-local-storage-state";
 
 const YACA_GITHUB_PAT_KEY = "YACA_GITHUB_PAT";
 const YACA_GITHUB_USERNAME_KEY = "YAVA_GITHUB_USERNAME";
 
 export function useGitHubAuthentication() {
+  const [, setToast] = useToasts();
+
   const [personalAccessToken, setPersonalAccessToken] = useLocalStorageState(
     YACA_GITHUB_PAT_KEY,
     null
@@ -40,16 +42,16 @@ export function useGitHubAuthentication() {
       }
 
       setPersonalAccessToken(token);
-      setUsername(login)
+      setUsername(login);
 
-      notification.success({
-        message: "Logged In",
-        description: "Github token accepted",
+      setToast({
+        text: "Logged In",
+        type: "success",
       });
     } catch (e) {
-      notification.error({
-        message: "Invalid Github Token",
-        description: "Invalid personal access token from github supplied",
+      setToast({
+        text: "Unable to Login",
+        type: "error",
       });
     }
 

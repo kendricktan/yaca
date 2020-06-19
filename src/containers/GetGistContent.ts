@@ -1,10 +1,11 @@
 import { createContainer } from "unstated-next";
 import React, { useState, useEffect } from "react";
-import { notification } from "antd";
+import { useToasts } from "@zeit-ui/react";
 
 import useGetGitHubGistId, { YACA_GIST_FILENAME } from "./GetGitHubGistId";
 
 export function useGetGistContent() {
+  const [, setToasts] = useToasts();
   const [isGetting, setIsGetting] = useState(false);
   const [gistContent, setGistContent] = useState(null);
 
@@ -21,9 +22,9 @@ export function useGetGistContent() {
 
       setGistContent(data);
     } catch (e) {
-      notification.error({
-        message: "Failed to retrieve receipes",
-        description: `https://gist.github.com${gistId} not found`,
+      setToasts({
+        text: `Failed to retrieve https://gist.github.com${gistId}`,
+        type: "error",
       });
     }
 
@@ -39,6 +40,7 @@ export function useGetGistContent() {
   return {
     isGetting,
     gistContent,
+    setGistContent
   };
 }
 

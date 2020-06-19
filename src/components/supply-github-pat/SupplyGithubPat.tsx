@@ -1,11 +1,7 @@
 import React, { useState } from "react";
-import { Typography, Button, Input } from "antd";
-
-import SpaceW from "../common/SpaceW";
+import { Row, Col, Text, Input, Button, Spacer } from "@zeit-ui/react";
 
 import useGithubAuthentication from "../../containers/GitHubAuthentication";
-
-const { Text } = Typography;
 
 const SupplyGithubPAT = () => {
   const {
@@ -17,25 +13,23 @@ const SupplyGithubPAT = () => {
 
   return (
     <>
-      <SpaceW direction="vertical">
-        <Text strong>YACA</Text>
-        <Text type="secondary">Yet Another Cooking App</Text>
-
-        <Input
-          placeholder="Github personal access token"
-          onChange={(e) => setToken(e.target.value)}
-          value={token}
-        />
-
-        <Button
-          type="primary"
-          block
-          loading={isChecking}
-          onClick={() => checkAndSetPersonalAccessToken({ token })}
-        >
-          Login
-        </Button>
-      </SpaceW>
+      <Text h2>YACA</Text>
+      <Text style={{ color: "#ccc" }}>Yet Another Cooking App</Text>
+      <Input
+        width="100%"
+        placeholder="Github personal access token"
+        onChange={(e) => setToken(e.target.value)}
+        value={token}
+      />
+      <Spacer />
+      <Button
+        type="success"
+        style={{ width: "100%" }}
+        loading={isChecking}
+        onClick={() => checkAndSetPersonalAccessToken({ token })}
+      >
+        Login
+      </Button>
     </>
   );
 };

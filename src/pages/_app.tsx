@@ -1,22 +1,32 @@
 import { AppProps } from "next/app";
-import "antd/dist/antd.css";
+import { CssBaseline, ZeitProvider } from "@zeit-ui/react";
 
 import AuthenticationContainer from "../containers/GitHubAuthentication";
 import GetGistContentContainer from "../containers/GetGistContent";
 import GetGitHubGistIdContainer from "../containers/GetGitHubGistId";
-import ExtractRecipeContainer from "../containers/ExtractRecipe";
+import ExtractAndSaveRecipe from "../containers/ExtractAndSaveRecipe";
+import SaveGithubGistContainer from "../containers/SaveGitHubGist";
+import RecipeModalContainer from "../components/recipe/useRecipeModal";
 
 function App({ Component, pageProps }: AppProps) {
   return (
-    <AuthenticationContainer.Provider>
-      <GetGitHubGistIdContainer.Provider>
-        <GetGistContentContainer.Provider>
-          <ExtractRecipeContainer.Provider>
-            <Component {...pageProps} />
-          </ExtractRecipeContainer.Provider>
-        </GetGistContentContainer.Provider>
-      </GetGitHubGistIdContainer.Provider>
-    </AuthenticationContainer.Provider>
+    <ZeitProvider>
+      <CssBaseline>
+        <RecipeModalContainer.Provider>
+          <AuthenticationContainer.Provider>
+            <GetGitHubGistIdContainer.Provider>
+              <GetGistContentContainer.Provider>
+                <SaveGithubGistContainer.Provider>
+                  <ExtractAndSaveRecipe.Provider>
+                    <Component {...pageProps} />
+                  </ExtractAndSaveRecipe.Provider>
+                </SaveGithubGistContainer.Provider>
+              </GetGistContentContainer.Provider>
+            </GetGitHubGistIdContainer.Provider>
+          </AuthenticationContainer.Provider>
+        </RecipeModalContainer.Provider>
+      </CssBaseline>
+    </ZeitProvider>
   );
 }
 

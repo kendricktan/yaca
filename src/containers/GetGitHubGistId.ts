@@ -1,12 +1,13 @@
 import { createContainer } from "unstated-next";
 import React, { useState, useEffect } from "react";
-import { notification } from "antd";
+import { useToasts } from "@zeit-ui/react";
 
 import useGitHubAuthentication from "./GitHubAuthentication";
 
 export const YACA_GIST_FILENAME = "yaca_database.json";
 
 export function useGetGitHubGistId() {
+  const [, setToasts] = useToasts();
   const [isProcessing, setIsProcessing] = useState(false);
   const [gistId, setGistId] = useState(null);
 
@@ -68,14 +69,14 @@ export function useGetGitHubGistId() {
 
       yacaGistId = createdJsonResp.id;
 
-      notification.info({
-        message: "Initialized new gist",
-        description: "Created a new recipe gist",
+      setToasts({
+        text: "New recipe database created",
+        type: "secondary",
       });
     } else {
-      notification.info({
-        message: "Recipe gist found",
-        description: "Using existing recipe gist",
+      setToasts({
+        text: "Found existing recipe database",
+        type: "secondary",
       });
     }
 
