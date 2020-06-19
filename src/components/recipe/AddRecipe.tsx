@@ -15,11 +15,12 @@ const AddRecipe = () => {
     <Fieldset>
       <Fieldset.Title>Add New Recipe</Fieldset.Title>
       <Fieldset.Subtitle>
-        Input a URL below to automatically extract recipe information. You can add a custom recipe by leaving the URL blank.
+        Input a URL below to automatically extract recipe information. You can
+        add a custom recipe by leaving the URL blank.
       </Fieldset.Subtitle>
       <Input
         width="100%"
-        placeholder={"https://sallysbakingaddiction.com/best-banana-cake/"}
+        placeholder="URL"
         onChange={(e) => setURL(e.target.value)}
         value={url}
       />
