@@ -7,8 +7,9 @@ import {
   Link,
   Textarea,
   Button,
-  Grid,
 } from "@zeit-ui/react";
+import { X } from "@zeit-ui/react-icons";
+
 import { useState, useEffect } from "react";
 
 import styled from "styled-components";
@@ -27,7 +28,7 @@ try {
 
 const ScrollableDiv = styled.div`
   overflow-y: auto;
-  height: ${windowHeight > 900 ? 600 : 400}px;
+  height: ${windowHeight > 900 ? 600 : windowHeight - 230}px;
 `;
 
 const RecipeModal = () => {
@@ -76,6 +77,19 @@ const RecipeModal = () => {
           setIsConfirmDelete(false);
         }}
       >
+        <div>
+          <Button
+            style={{ position: "absolute", top: "-10px", left: "-20px" }}
+            type="abort"
+            auto
+            icon={<X />}
+            onClick={() => {
+              setIsModalOpen(false);
+              setIsConfirmDelete(false);
+            }}
+          />
+        </div>
+
         <Modal.Title>{title}</Modal.Title>
         <Modal.Content
           style={{
