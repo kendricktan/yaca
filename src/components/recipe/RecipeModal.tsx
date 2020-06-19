@@ -97,7 +97,7 @@ const RecipeModal = () => {
               <ScrollableDiv>
                 <>
                   <ul>
-                    {ingredients.map((x) => (
+                    {(ingredients || []).map((x) => (
                       <li key={x}>{x}</li>
                     ))}
                   </ul>
@@ -107,7 +107,7 @@ const RecipeModal = () => {
             <Tabs.Item label="Steps" value="steps">
               <ScrollableDiv>
                 <ol>
-                  {instructions.map((x) => (
+                  {(instructions || []).map((x) => (
                     <li key={x}>{x}</li>
                   ))}
                 </ol>
@@ -149,7 +149,7 @@ const RecipeModal = () => {
                   onChange={(e) =>
                     setNRecipeKV("ingredients", e.target.value.split("\n"))
                   }
-                  value={nRecipeData.ingredients.join("\n")}
+                  value={(nRecipeData.ingredients || []).join("\n")}
                 />
                 <Spacer y={1} />
                 <Text h4>Steps</Text>
@@ -158,7 +158,7 @@ const RecipeModal = () => {
                   onChange={(e) =>
                     setNRecipeKV("instructions", e.target.value.split("\n\n"))
                   }
-                  value={nRecipeData.instructions.join("\n\n")}
+                  value={(nRecipeData.instructions || []).join("\n\n")}
                 />
                 <Spacer y={1} />
                 <Text h4>Tags</Text>
@@ -168,7 +168,7 @@ const RecipeModal = () => {
                     setNRecipeKV("tags", e.target.value.split(","))
                   }
                   placeholder="dessert,favorite"
-                  value={nRecipeData.tags.join(",")}
+                  value={(nRecipeData.tags || []).join(",")}
                 />
                 <Spacer y={1} />
                 <Button

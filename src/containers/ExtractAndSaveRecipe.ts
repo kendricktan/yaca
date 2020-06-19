@@ -54,8 +54,13 @@ export function useExtractAndSaveRecipe() {
       const data = await res.json();
 
       // Ingredients just needs to be a list
+      const newIngredients = data.ingredients
+        ? data.ingredients.map((x) => x.line)
+        : [];
+      const newInstructions = data.instructions ? data.instructions : [];
       const newRecipeData = Object.assign({}, data, {
-        ingredients: data.ingredients.map((x) => x.line),
+        ingredients: newIngredients,
+        instructions: newInstructions,
         tags: [],
       });
 
