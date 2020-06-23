@@ -47,7 +47,6 @@ const RecipeDasboard = () => {
         <AddRecipe />
         <Spacer y={1} />
         <ShowRecipes />
-        <RecipeModal />
       </>
     </>
   );
