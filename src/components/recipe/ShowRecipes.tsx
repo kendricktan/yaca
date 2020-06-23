@@ -29,6 +29,8 @@ const MyGridListTile = styled(GridListTile)`
   cursor: pointer;
 `;
 
+const DEFAULT_IMAGE = "https://i.imgur.com/rUPj2pR.jpg";
+
 const ShowRecipes = () => {
   const { setIsModalOpen, setSelectedRecipeId } = useRecipeModal.useContainer();
   const { gistId } = useGetGitHubGistId.useContainer();
@@ -105,7 +107,7 @@ const ShowRecipes = () => {
                 }}
                 key={recipeId}
               >
-                <img src={image} alt={title} />
+                <img src={image || DEFAULT_IMAGE} alt={title} />
                 <GridListTileBar title={title} />
               </MyGridListTile>
             );
