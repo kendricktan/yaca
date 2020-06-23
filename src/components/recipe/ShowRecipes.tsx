@@ -1,18 +1,33 @@
 import { useState } from "react";
 
-import {
-  Input,
-  Spacer,
-  Image,
-  Display,
-  Loading,
-  Row,
-  Text,
-} from "@zeit-ui/react";
+import { Input, Spacer, Loading, Row, Text } from "@zeit-ui/react";
 
 import useGetGistContent from "../../containers/GetGistContent";
 import useGetGitHubGistId from "../../containers/GetGitHubGistId";
 import useRecipeModal from "./useRecipeModal";
+
+import { makeStyles } from "@material-ui/core/styles";
+import GridList from "@material-ui/core/GridList";
+import GridListTile from "@material-ui/core/GridListTile";
+import GridListTileBar from "@material-ui/core/GridListTileBar";
+
+import styled from "styled-components";
+
+const GridListContainer = styled.div`
+  display: flex;
+  flexwrap: wrap;
+  justifycontent: space-around;
+  overflow: hidden;
+`;
+
+const GridListFull = styled(GridList)`
+  width: 100%;
+  height: 100%;
+`;
+
+const MyGridListTile = styled(GridListTile)`
+  cursor: pointer;
+`;
 
 const ShowRecipes = () => {
   const { setIsModalOpen, setSelectedRecipeId } = useRecipeModal.useContainer();
@@ -22,6 +37,34 @@ const ShowRecipes = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const recipeIds = Object.keys(gistContent || {});
+  const filteredRecipeIds = recipeIds.filter((recipeId) => {
+    const searchTermStandardized = searchTerm.trim().toLowerCase();
+    const { title, tags } = gistContent[recipeId];
+
+    // Display everything by default
+    if (searchTermStandardized === "") {
+      return true;
+    }
+
+    // Search by tag
+    if (
+      searchTermStandardized.slice(0, 5) === "tags:" ||
+      searchTermStandardized.slice(0, 4) === "tag:"
+    ) {
+      const searchTags = searchTermStandardized.split(":")[1].split(",");
+
+      for (const searchTag of searchTags) {
+        for (const tag of tags) {
+          if (tag.includes(searchTag)) {
+            return true;
+          }
+        }
+      }
+    }
+
+    // Else search by name
+    return title.toLowerCase().includes(searchTermStandardized);
+  });
 
   if (isGetting || !gistId) {
     return (
@@ -48,65 +91,27 @@ const ShowRecipes = () => {
         placeholder="Search"
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      {recipeIds
-        .filter((recipeId) => {
-          const searchTermStandardized = searchTerm.trim().toLowerCase();
-          const { title, tags } = gistContent[recipeId];
+      <Spacer y={2} />
+      <GridListContainer>
+        <GridListFull cellHeight={180}>
+          {filteredRecipeIds.map((recipeId) => {
+            const { image, title } = gistContent[recipeId];
 
-          // Display everything by default
-          if (searchTermStandardized === "") {
-            return true;
-          }
-
-          // Search by tag
-          if (
-            searchTermStandardized.slice(0, 5) === "tags:" ||
-            searchTermStandardized.slice(0, 4) === "tag:"
-          ) {
-            const searchTags = searchTermStandardized.split(":")[1].split(",");
-
-            for (const searchTag of searchTags) {
-              for (const tag of tags) {
-                if (tag.includes(searchTag)) {
-                  return true;
-                }
-              }
-            }
-          }
-
-          // Else search by name
-          return title.toLowerCase().includes(searchTermStandardized);
-        })
-        .map((recipeId) => {
-          const { image, title } = gistContent[recipeId];
-
-          return (
-            <div key={recipeId}>
-              <Display
-                style={{ cursor: "pointer" }}
+            return (
+              <MyGridListTile
                 onClick={() => {
                   setIsModalOpen(true);
                   setSelectedRecipeId(recipeId);
                 }}
-                shadow
-                caption={
-                  <span style={{ display: "block", marginTop: "-1rem" }}>
-                    {title}
-                  </span>
-                }
+                key={recipeId}
               >
-                <Image
-                  width={435}
-                  height={200}
-                  src={image || "https://i.imgur.com/rUPj2pR.jpg"}
-                  style={{ objectFit: "cover", maxHeight: "200px" }}
-                />
-              </Display>
-
-              <Spacer y={1} />
-            </div>
-          );
-        })}
+                <img src={image} alt={title} />
+                <GridListTileBar title={title} />
+              </MyGridListTile>
+            );
+          })}
+        </GridListFull>
+      </GridListContainer>
     </>
   );
 };

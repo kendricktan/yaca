@@ -18,6 +18,10 @@ export default () => {
     body {
       overflow: ${isModalOpen ? "hidden" : "auto"};
     }
+
+    ul li:before {
+      content: '';
+    }
   `;
 
   return (
