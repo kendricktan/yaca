@@ -86,7 +86,7 @@ const ShowRecipes = () => {
 
   return (
     <>
-      <Text h2>Recipes</Text>
+      <Text h2>Recipes ({filteredRecipeIds.length})</Text>
       <Input
         value={searchTerm}
         width="100%"
