@@ -49,8 +49,8 @@ export function useExtractAndSaveRecipe() {
 
     try {
       // Extract data from
-      const structuredDataUrl = `https://ingredients.schollz.now.sh/?url=${url} `;
-      const res = await fetch(structuredDataUrl);
+      const structuredDataUrl = `https://yaca-ingredients.netlify.app/?url=${url} `;
+      const res = await fetch(structuredDataUrl, { mode: "cors" });
       const data = await res.json();
 
       // Ingredients just needs to be a list
@@ -83,6 +83,26 @@ export function useExtractAndSaveRecipe() {
         text: "Failed to extract from URL",
         type: "error",
       });
+
+      // Empty recipe data
+      const newRecipeData = Object.assign(
+        {},
+        {
+          ingredients: [],
+          instructions: [],
+          tags: [],
+        }
+      );
+
+      // Save it
+      await saveGithubGist({
+        recipeId: newRecipeId,
+        recipeData: newRecipeData,
+      });
+
+      // Open up modal and set the selected recipe id
+      setSelectedRecipeId(newRecipeId);
+      setIsModalOpen(true);
     }
     setIsProcessing(false);
   };
